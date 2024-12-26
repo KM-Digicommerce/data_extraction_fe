@@ -6,7 +6,7 @@ import Logout from "../../Auth/Logout";
 const UserDashboard = () => {
   return (
     <Box sx={{ mt: "auto", mb: 2, px: 2 }}>
-      <Typography variant="h5">Welcome to User Dashboard</Typography>
+      <Typography variant="h5">Welcome to User Dashboard !</Typography>
       <Logout />
     </Box>
   );
