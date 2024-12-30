@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Auth/Login';
-import SuperAdminDashboard from './components/Admin/AdminDashboard/AdminDashboard';
-import UserDashboard from './components/User/UserDashboard/UserDashboard';
+import SuperAdmin from './components/Admin/AdminDashboard/AdminDashboard';
+import User from './components/User/Layout/MiniDrawer';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import Register from './components/Auth/Register';
 const AppRoutes = () => {
@@ -18,15 +18,16 @@ const AppRoutes = () => {
           path="/super_admin/*"
           element={
             <PrivateRoute allowedRoles={['super_admin']}>
-              <SuperAdminDashboard />
+              <SuperAdmin />
             </PrivateRoute>
           }
         />
         <Route
           path="/client/*"
           element={
+            // <User />
             <PrivateRoute allowedRoles={['client']}>
-              <UserDashboard />
+            <User />
             </PrivateRoute>
           }
         />

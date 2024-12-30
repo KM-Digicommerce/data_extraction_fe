@@ -1,4 +1,3 @@
-// src/components/Register.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -9,22 +8,83 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
+  const [mobileNumberError, setMobileNumberError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const validateFields = () => {
+    let isValid = true;
+
+    if (!firstName) {
+      setFirstNameError('First Name is required');
+      isValid = false;
+    } else {
+      setFirstNameError('');
+    }
+
+    if (!lastName) {
+      setLastNameError('Last Name is required');
+      isValid = false;
+    } else {
+      setLastNameError('');
+    }
+
+    if (!email) {
+      setEmailError('Email is required');
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Invalid email format');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+
+    if (!mobileNumber) {
+      setMobileNumberError('Mobile Number is required');
+      isValid = false;
+    } else if (!/^\d{10}$/.test(mobileNumber)) {
+      setMobileNumberError('Mobile Number must be 10 digits');
+      isValid = false;
+    } else {
+      setMobileNumberError('');
+    }
+
+    return isValid;
+  };
+
+  const handleFieldChange = (setter, errorSetter) => (event) => {
+    const value = event.target.value;
+    setter(value);
+    if (value.trim() !== '') {
+      errorSetter(''); // Clear error when valid
+    }
+  };
+
   const handleRegister = async () => {
+    if (!validateFields()) return;
+
     setLoading(true);
     try {
+      const emailCheckResponse = await axios.get(`${process.env.REACT_APP_IP}checkEmailExistOrNot/`, {
+        params: { email },
+      });
+
+      if (emailCheckResponse.data?.data?.is_exist) {
+        setEmailError('This email is already in use. Please use a different email.');
+        setLoading(false);
+        return;
+      }
+
       const response = await axios.post(`${process.env.REACT_APP_IP}signupUser/`, {
         first_name: firstName,
         last_name: lastName,
         email: email,
         mobile_number: mobileNumber,
       });
-  
-      console.log('Registration Response:', response.data); // Log the full response
-  
-      // Check for 'status' field in the response
+
       if (response.data && response.data.status) {
         alert('Registration successful! You can now login.');
         navigate('/'); // Redirect to login page
@@ -32,17 +92,12 @@ const Register = () => {
         alert('Registration failed. Please try again.');
       }
     } catch (error) {
-      console.error('Registration Error:', error);
-      alert('An error occurred during registration. Please try again.');
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
   };
-
-  const handleLoginRedirect = () => {
-    navigate('/'); // Redirect to the Login page
-  };
-  
 
   return (
     <Box display="flex" height="100vh">
@@ -51,9 +106,9 @@ const Register = () => {
         <Typography variant="h4" color="textPrimary" gutterBottom>
           Invoice Data Extraction
         </Typography>
-        <Typography variant="body1" color="textSecondary" padding={'20px'} align="center">
-        Invoice Data Extraction tool streamlines the process of processing invoices by automatically capturing key information such as invoice numbers, dates, vendor details, and itemized costs. Using advanced OCR and machine learning, it reduces manual data entry, boosts accuracy, and saves time. Ideal for businesses looking to streamline their accounting processes and improve productivity, this tool simplifies invoice management.
-        </Typography>
+          <Typography variant="body1" color="textSecondary" padding={'20px'} align="center">
+                  Invoice Data Extraction tool streamlines the process of processing invoices by automatically capturing key information such as invoice numbers, dates, vendor details, and itemized costs. Using advanced OCR and machine learning, it reduces manual data entry, boosts accuracy, and saves time. Ideal for businesses looking to streamline their accounting processes and improve productivity, this tool simplifies invoice management.
+                </Typography>
       </Box>
 
       {/* Right side */}
@@ -66,9 +121,11 @@ const Register = () => {
           <TextField
             label="First Name"
             value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={handleFieldChange(setFirstName, setFirstNameError)}
             fullWidth
             variant="outlined"
+            error={!!firstNameError}
+            helperText={firstNameError}
             InputProps={{
               style: { height: '60px' },
             }}
@@ -77,9 +134,11 @@ const Register = () => {
           <TextField
             label="Last Name"
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={handleFieldChange(setLastName, setLastNameError)}
             fullWidth
             variant="outlined"
+            error={!!lastNameError}
+            helperText={lastNameError}
             InputProps={{
               style: { height: '60px' },
             }}
@@ -89,9 +148,11 @@ const Register = () => {
             label="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleFieldChange(setEmail, setEmailError)}
             fullWidth
             variant="outlined"
+            error={!!emailError}
+            helperText={emailError}
             InputProps={{
               style: { height: '60px' },
             }}
@@ -101,9 +162,11 @@ const Register = () => {
             label="Mobile Number"
             type="text"
             value={mobileNumber}
-            onChange={(e) => setMobileNumber(e.target.value)}
+            onChange={handleFieldChange(setMobileNumber, setMobileNumberError)}
             fullWidth
             variant="outlined"
+            error={!!mobileNumberError}
+            helperText={mobileNumberError}
             InputProps={{
               style: { height: '60px' },
             }}
@@ -114,17 +177,16 @@ const Register = () => {
             color="primary"
             onClick={handleRegister}
             fullWidth
-            disabled={loading} // Disable button during loading
-            startIcon={loading && <CircularProgress size={20} color="inherit" />} // Show spinner
+            disabled={loading}
+            startIcon={loading && <CircularProgress size={20} color="inherit" />}
           >
             {loading ? 'Registering...' : 'Register'}
           </Button>
 
-           {/* Register Button */}
-           <Button
+          <Button
             variant="text"
             color="secondary"
-            onClick={handleLoginRedirect}
+            onClick={() => navigate('/')}
             fullWidth
           >
             Already have an account? Login here

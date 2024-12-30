@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,21 +9,64 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
 
+  const validateFields = () => {
+    let valid = true;
+
+    if (!email) {
+      setEmailError('Email is required');
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Invalid email format');
+      valid = false;
+    } else {
+      setEmailError('');
+    }
+
+    if (!password) {
+      setPasswordError('Password is required');
+      valid = false;
+    } else {
+      setPasswordError('');
+    }
+
+    return valid;
+  };
+
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    // Remove error message if the email becomes valid
+    if (value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+
+    // Remove error message if the password is not empty
+    if (value) {
+      setPasswordError('');
+    }
+  };
+
   const handleLogin = async () => {
+    if (!validateFields()) return;
+
     setLoading(true);
     try {
       const response = await axios.post(`${process.env.REACT_APP_IP}loginUser/`, { email, password });
       const { data } = response.data;
 
-      console.log('API Response:', data);
-
       if (data.valid) {
         localStorage.setItem('token', data._c1);
         localStorage.setItem('user', JSON.stringify(data));
-
-        console.log('User Role:', data.role_name);
 
         switch (data.role_name) {
           case 'super_admin':
@@ -38,14 +80,13 @@ const Login = () => {
             navigate('/');
         }
       } else {
-        alert('Invalid credentials');
+        setPasswordError('Invalid credentials'); // Show error message on password field
       }
     } catch (error) {
       console.error('Login Error:', error);
       alert('Server Error');
-    }
-    finally {
-      setLoading(false); // Stop loading spinner
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +99,7 @@ const Login = () => {
   };
 
   const handleRegisterRedirect = () => {
-    navigate('/register'); // Redirect to the Register page
+    navigate('/register');
   };
 
   return (
@@ -69,7 +110,7 @@ const Login = () => {
           Invoice Data Extraction
         </Typography>
         <Typography variant="body1" color="textSecondary" padding={'20px'} align="center">
-        Invoice Data Extraction tool streamlines the process of processing invoices by automatically capturing key information such as invoice numbers, dates, vendor details, and itemized costs. Using advanced OCR and machine learning, it reduces manual data entry, boosts accuracy, and saves time. Ideal for businesses looking to streamline their accounting processes and improve productivity, this tool simplifies invoice management.
+          Invoice Data Extraction tool streamlines the process of processing invoices by automatically capturing key information such as invoice numbers, dates, vendor details, and itemized costs. Using advanced OCR and machine learning, it reduces manual data entry, boosts accuracy, and saves time. Ideal for businesses looking to streamline their accounting processes and improve productivity, this tool simplifies invoice management.
         </Typography>
       </Box>
 
@@ -83,9 +124,11 @@ const Login = () => {
             label="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             fullWidth
             variant="outlined"
+            error={!!emailError}
+            helperText={emailError}
             InputProps={{
               style: {
                 height: '60px',
@@ -97,9 +140,11 @@ const Login = () => {
             label="Password"
             type={showPassword ? 'text' : 'password'}
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             fullWidth
             variant="outlined"
+            error={!!passwordError}
+            helperText={passwordError}
             InputProps={{
               style: {
                 height: '60px',
@@ -123,8 +168,8 @@ const Login = () => {
             color="primary"
             onClick={handleLogin}
             fullWidth
-            disabled={loading} // Disable button during loading
-            startIcon={loading && <CircularProgress size={20} color="inherit" />} // Show spinner
+            disabled={loading}
+            startIcon={loading && <CircularProgress size={20} color="inherit" />}
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>
@@ -137,7 +182,6 @@ const Login = () => {
             Forgot Password?
           </Typography>
 
-          {/* Register Button */}
           <Button
             variant="text"
             color="secondary"
