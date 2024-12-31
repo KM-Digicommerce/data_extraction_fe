@@ -1,13 +1,30 @@
 import React from "react";
-import { Typography, Box } from "@mui/material";
-import Logout from "../../Auth/Logout";
+import {
+  Box,
+  Typography,
+} from "@mui/material";
 
 const AdminDashboard = () => {
+
   return (
-    <Box sx={{ mt: "auto", mb: 2, px: 2 }}>
-      <Typography variant="h5">Welcome to Admin Dashboard !</Typography>
-      <Logout />
-    </Box>
+    <Box
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "200px",
+      textAlign: "center",
+      flexDirection: "column",
+    }}
+  >
+    <Typography variant="h6" color="textSecondary">
+       Admin Dashboard will be available soon!
+    </Typography>
+    <Typography variant="body2" color="textSecondary">
+      We're working on it. Stay tuned!
+    </Typography>
+  </Box>
+  
   );
 };
 

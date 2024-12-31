@@ -104,11 +104,9 @@ const Register = () => {
       {/* Left side */}
       <Box className="login-page" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" px={5}>
         <Typography variant="h4" color="textPrimary" gutterBottom>
-          Invoice Data Extraction
+          Data Extraction
         </Typography>
-          <Typography variant="body1" color="textSecondary" padding={'20px'} align="center">
-                  Invoice Data Extraction tool streamlines the process of processing invoices by automatically capturing key information such as invoice numbers, dates, vendor details, and itemized costs. Using advanced OCR and machine learning, it reduces manual data entry, boosts accuracy, and saves time. Ideal for businesses looking to streamline their accounting processes and improve productivity, this tool simplifies invoice management.
-                </Typography>
+       
       </Box>
 
       {/* Right side */}

@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Auth/Login';
-import SuperAdmin from './components/Admin/AdminDashboard/AdminDashboard';
+import SuperAdmin from './components/Admin/Layout/MiniDrawer';
 import User from './components/User/Layout/MiniDrawer';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import Register from './components/Auth/Register';

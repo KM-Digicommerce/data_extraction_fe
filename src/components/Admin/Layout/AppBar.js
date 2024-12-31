@@ -39,12 +39,12 @@ const CustomAppBar = ({ open, onMenuClick }) => (
         <MenuIcon />
       </IconButton>
       <Typography variant="h6" noWrap component="div">
-       Data Extraction
+       Data Extraction Admin
       </Typography>
     </Toolbar>
 
     <Box sx={{paddingRight:'24px'}}>
-      <Typography>Lakshmi</Typography>
+      <Typography>Admin</Typography>
     </Box>
     </Box>
   </AppBar>
