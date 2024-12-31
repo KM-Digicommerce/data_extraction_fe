@@ -1,7 +1,7 @@
 // src\components\User\Invoice\invoice.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Paper, Typography, Box } from '@mui/material';
+import { Grid, Paper, Typography, Box, CircularProgress } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import InvoicePreview from './InvoicePreview';
 import InvoiceTabs from './InvoiceTabs';
@@ -45,12 +45,18 @@ function Invoice() {
     <Grid container spacing={2}>
       <Grid item xs={12} md={4}>
         <Paper sx={{ padding: 2 }}>
-          <InvoicePreview
-            files={files}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            defaultFile={defaultFile}
-          />
+          {loading ? (
+            <Box sx={{ textAlign: 'center', padding: 5 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <InvoicePreview
+              files={files}
+              currentIndex={currentIndex}
+              setCurrentIndex={setCurrentIndex}
+              defaultFile={defaultFile}
+            />
+          )}
           <Box
             {...getRootProps()}
             sx={{
@@ -69,7 +75,13 @@ function Invoice() {
       </Grid>
       <Grid item xs={12} md={8}>
         <Paper sx={{ padding: 2 }}>
-          <InvoiceTabs invoiceData={invoiceData} />
+          {loading ? (
+            <Box sx={{ textAlign: 'center', padding: 5 }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <InvoiceTabs invoiceData={invoiceData} />
+          )}
         </Paper>
       </Grid>
     </Grid>
