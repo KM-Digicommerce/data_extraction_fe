@@ -18,7 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const drawerWidth = 180;
+const drawerWidth = 250;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -110,7 +110,16 @@ export default function MiniDrawer() {
               <ListItemIcon sx={[{ minWidth: 0, justifyContent: "center" }, drawerOpen ? { mr: 2 } : { mr: "auto" }]}>
                 <Receipt />
               </ListItemIcon>
-              <ListItemText primary="Invoice" sx={[drawerOpen ? { opacity: 1 } : { opacity: 0 }]} />
+              <ListItemText primary="Invoice Extraction" sx={[drawerOpen ? { opacity: 1 } : { opacity: 0 }]} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton component={Link} to="/client/rent" sx={[{ minHeight: 48, px: 2 }, drawerOpen ? { justifyContent: "initial" } : { justifyContent: "center" }]}>
+              <ListItemIcon sx={[{ minWidth: 0, justifyContent: "center" }, drawerOpen ? { mr: 2 } : { mr: "auto" }]}>
+                <Receipt />
+              </ListItemIcon>
+              <ListItemText primary="Rent/Lease Extraction" sx={[drawerOpen ? { opacity: 1 } : { opacity: 0 }]} />
             </ListItemButton>
           </ListItem>
 
