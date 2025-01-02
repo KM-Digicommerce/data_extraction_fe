@@ -1,6 +1,6 @@
-// src/components/User/Invoice/InvoiceTabs.js
+// C:\KM-Projects\invoice-de\src\components\User\Invoice\InvoiceTabs.js
 import React from 'react';
-import { Box, Tab, Tabs } from '@mui/material';
+import { Box, Tab, Tabs , Typography } from '@mui/material';
 import RawDataTab from './RawDataTab';
 import JsonTab from './JsonTab';
 import FormFieldsTab from './FormFieldsTab';
@@ -14,16 +14,18 @@ function InvoiceTabs({ invoiceData }) {
 
   return (
     <Box>
+     
+
       <Tabs value={selectedTab} onChange={handleTabChange} aria-label="invoice data tabs">
-        <Tab label="Extracted Data" />
         <Tab label="JSON" />
+        <Tab label="Raw Data" />
         <Tab label="Form Fields" />
       </Tabs>
 
       <Box
         sx={{
           paddingTop: 2,
-          maxHeight: '85vh',
+          maxHeight: '60vh',
           overflowY: 'auto',
           '&::-webkit-scrollbar': {
             width: '6px', // Adjust the width of the scrollbar
@@ -37,9 +39,10 @@ function InvoiceTabs({ invoiceData }) {
           },
         }}
       >
-        {selectedTab === 0 && <RawDataTab data={invoiceData} />}
-        {selectedTab === 1 && <JsonTab data={invoiceData} />}
-        {selectedTab === 2 && <FormFieldsTab />}
+
+        {selectedTab === 0 && <JsonTab data={invoiceData} />}
+        {selectedTab === 1 && <RawDataTab data={invoiceData} />}
+        {selectedTab === 2 && <FormFieldsTab data={invoiceData} />}
       </Box>
     </Box>
   );

@@ -25,6 +25,10 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+const user = JSON.parse(localStorage.getItem('user'));
+
+console.log(user)
+
 const CustomAppBar = ({ open, onMenuClick }) => (
   <AppBar position="fixed" open={open} sx={{boxShadow:'none'}}>
     <Box sx={{display:'flex' , justifyContent:'space-between' , alignItems:'center'}}>
@@ -44,7 +48,7 @@ const CustomAppBar = ({ open, onMenuClick }) => (
     </Toolbar>
 
     <Box sx={{paddingRight:'24px'}}>
-      <Typography>Lakshmi</Typography>
+      <Typography>{user?.name}</Typography>
     </Box>
     </Box>
   </AppBar>
