@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Grid, Paper, Typography, Box, CircularProgress, Button, Snackbar, Alert } from '@mui/material';
 import InvoicePreview from './InvoicePreview';
 import InvoiceTabs from './InvoiceTabs';
-import InvoiceThumbnails from './InvoiceThumbnails';
 import { Document, Page, pdfjs } from 'react-pdf';
 import InvoiceUpload from './InvoiceUpload'
 import InvoiceExport from './InvoiceExport';
