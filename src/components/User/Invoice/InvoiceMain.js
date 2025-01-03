@@ -151,9 +151,9 @@ function Invoice() {
 
       {/* File Upload Section */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' , mb:2}}>
-        {/* <Box>
+        <Box>
           <InvoiceExport />
-        </Box> */}
+        </Box>
         <Box>
         <InvoiceUpload
           handleFileUpload={handleFileUpload}
@@ -183,15 +183,6 @@ function Invoice() {
                   isSampleFile={isSampleFile}
                   sampleInvoiceData={sampleInvoiceData}
                 />
-                {/* <InvoiceThumbnails
-                  files={files}
-                  thumbnails={thumbnails}
-                  setCurrentIndex={setCurrentIndex}
-                  currentIndex={currentIndex}
-                  isSampleFile={isSampleFile}
-                  setIsSampleFile={setIsSampleFile}
-                  defaultFile={defaultFile} // Always pass default file to show sample thumbnail first
-                /> */}
               </>
             )}
           </Paper>
