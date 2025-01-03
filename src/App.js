@@ -3,11 +3,30 @@ import AppRoutes from './routes';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
-// Create the theme with your custom primary color
+// Create the theme with your custom primary color and typography settings
 const theme = createTheme({
   palette: {
     primary: {
       main: "#A34498", // Your custom primary color
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', // Custom font family for all text
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', // Apply to buttons as well
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif', // Apply to typography components
+        },
+      },
     },
   },
 });

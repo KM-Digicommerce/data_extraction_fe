@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material';
-
+import { TextField, Button, Box, Typography, CircularProgress, Paper } from '@mui/material';
+import loginGif from '../../assestes/loginGIf.gif';
 const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -100,20 +100,14 @@ const Register = () => {
   };
 
   return (
-    <Box display="flex" height="100vh">
-      {/* Left side */}
-      <Box className="login-page" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center" px={5}>
-        <Typography variant="h4" color="textPrimary" gutterBottom>
-          Data Extraction
-        </Typography>
-       
-      </Box>
+    <Box display="flex" height="100vh" sx={{backgroundColor:'#fcdbf91c'}}>
+     
 
-      {/* Right side */}
-      <Box flex={1} display="flex" justifyContent="center" alignItems="center">
-        <Box display="flex" flexDirection="column" alignItems="center" gap={2} width="100%" maxWidth="400px" mx="auto" px={3}>
+      {/* Left side */}
+      <Box flex={1} display="flex" justifyContent="center" alignItems="center" >
+        <Box component={Paper} display="flex" flexDirection="column" alignItems="center" gap={2} width="100%" maxWidth="400px" mx="auto" py={5} px={3}>
           <Typography variant="h5" color="textPrimary" gutterBottom>
-            Create an Account
+            Sign Up
           </Typography>
 
           <TextField
@@ -124,9 +118,7 @@ const Register = () => {
             variant="outlined"
             error={!!firstNameError}
             helperText={firstNameError}
-            InputProps={{
-              style: { height: '60px' },
-            }}
+           
           />
 
           <TextField
@@ -137,9 +129,7 @@ const Register = () => {
             variant="outlined"
             error={!!lastNameError}
             helperText={lastNameError}
-            InputProps={{
-              style: { height: '60px' },
-            }}
+         
           />
 
           <TextField
@@ -151,9 +141,7 @@ const Register = () => {
             variant="outlined"
             error={!!emailError}
             helperText={emailError}
-            InputProps={{
-              style: { height: '60px' },
-            }}
+         
           />
 
           <TextField
@@ -165,9 +153,7 @@ const Register = () => {
             variant="outlined"
             error={!!mobileNumberError}
             helperText={mobileNumberError}
-            InputProps={{
-              style: { height: '60px' },
-            }}
+          
           />
 
           <Button
@@ -186,11 +172,35 @@ const Register = () => {
             color="secondary"
             onClick={() => navigate('/')}
             fullWidth
+            sx={{textTransform:'none' , color:'black'}}
           >
-            Already have an account? Login here
+            Already have an account? SignIn
           </Button>
         </Box>
       </Box>
+
+      {/* Right side */}
+      <Box className="login-page" flex={1} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+       <Box sx={{backgroundColor:'#A34498' , height:'100vh' , width:'100%' , display:'flex' ,flexDirection:'column',  alignItems:'center' , justifyContent:'flex-end' , py:6}} >
+         <Typography variant="p" color="white" gutterBottom sx={{fontWeight:'500', fontSize:'2rem', fontFamily:'sans-serif', marginBottom:2}}>
+            Welcome !
+          </Typography>
+
+          <Typography variant="p" color="white" gutterBottom sx={{fontWeight:'400', fontSize:'1rem', fontFamily:'sans-serif', marginBottom:6 , textAlign:'center' , width:'70%', margin:'0 auto 5rem auto'}}>
+          Seamlessly extract and manage data from your invoices with our automated system. Upload your files, and let our tool quickly process and display relevant details for your review.
+          </Typography>
+
+           
+    <img 
+      src={loginGif}  
+      alt="Login GIF" 
+      style={{maxWidth: '80%', height: 'auto', borderRadius: '6px' , border:'10px solid white'}} // Ensure it fits well in the container
+    />
+          
+       </Box>
+      </Box>
+       
+    
     </Box>
   );
 };
