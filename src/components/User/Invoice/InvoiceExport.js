@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, Grid, Typography } from '@mui/material';
+import { FormControl, MenuItem, Select, Grid, Typography } from '@mui/material';
 
 function ExportDropdown() {
   const [format, setFormat] = useState('select'); // Default format is JSON

@@ -5,10 +5,9 @@ import axios from 'axios';
 import { Grid, Paper, Typography, Box, CircularProgress, Button, Snackbar, Alert } from '@mui/material';
 import InvoicePreview from './InvoicePreview';
 import InvoiceTabs from './InvoiceTabs';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
 import InvoiceUpload from './InvoiceUpload'
 import InvoiceExport from './InvoiceExport';
-import Fetch from './fetch';
 
 // Set up PDF worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;

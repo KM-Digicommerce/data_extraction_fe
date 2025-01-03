@@ -17,7 +17,7 @@ const RentMain = () => {
     }}
   >
     <Typography variant="h6" color="textSecondary">
-      Rent / Lease Invoice Extraction feature will be available soon!
+      Rent / Lease Data Extraction feature will be available soon!
     </Typography>
     <Typography variant="body2" color="textSecondary">
       We're working on it. Stay tuned!

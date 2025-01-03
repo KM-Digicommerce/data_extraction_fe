@@ -1,6 +1,6 @@
 // C:\KM-Projects\invoice-de\src\components\User\Invoice\InvoiceTabs.js
 import React from 'react';
-import { Box, Tab, Tabs , Typography } from '@mui/material';
+import { Box, Tab, Tabs } from '@mui/material';
 import RawDataTab from './RawDataTab';
 import JsonTab from './JsonTab';
 import FormFieldsTab from './FormFieldsTab';
